@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>A-Frame Photo Viewer</title>
+    <script src="https://aframe.io/releases/0.3.0/aframe.js"></script>
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <img id="image1" src="images/barnyz_11129952164_e10c4ec600_k.jpg"/>
+      </a-assets>
+      <a-entity position="0 0 5">
+        <a-camera></a-camera>
+      </a-entity> 
+      <a-box position="0 0 0" width="3" height="3" depth="3" src="#texture"></a-box>
+      <a-box position="4 0 0" width="3" height="2" depth="1" color="red"></a-box>
+      <a-sky color="#210657"></a-sky>
+    </a-scene>
+  </body>
+</html>
