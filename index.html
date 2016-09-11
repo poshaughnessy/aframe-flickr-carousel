@@ -3,11 +3,11 @@
   <head>
     <title>A-Frame Photo Viewer</title>
     <script src="https://aframe.io/releases/0.3.0/aframe.js"></script>
-    <script src="main.js"></script>
   </head>
   <body>
-    <a-scene>
-      <a-assets>
+    <a-scene id="scene">
+      <!--
+      <a-assets id="assets">
         <img id="image1" src="images/barnyz_11129952164_e10c4ec600_k.jpg"/>
         <img id="image2" src="images/ifenyu_9265105553_cc2286fdce_o.jpg"/>
         <img id="image3" src="images/oneras_5142031622_7676650034_o.jpg"/>
@@ -19,7 +19,9 @@
       <a-plane src="#image3" height="1" width="1" position="0 1 -3"></a-plane>
       <a-plane src="#image4" height="1" width="1" position="2 1 -3"></a-plane>
       <a-plane src="#image5" height="1" width="1" position="4 1 -3"></a-plane>
+      -->
       <a-sky color="#333"></a-sky>
     </a-scene>
+    <script src="main.js"></script>
   </body>
 </html>
