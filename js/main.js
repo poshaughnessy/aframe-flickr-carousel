@@ -6,7 +6,7 @@ var CAROUSEL_ROTATE_Y_CHANGE = 360 / 9;
 var scene = document.getElementById('scene');
 var assets = document.getElementById('assets');
 var imageContainer = document.getElementById('imageContainer');
-var carouselAnimation = document.getElementById('carouselAnimation');
+var animation = document.querySelector('a-animation');
 
 var currentRotationY = 10;
 var imageSrcArray = [];
@@ -63,12 +63,34 @@ function processUrls(photos) {
 
 }
 
+function setupAnimation() {
+
+  animation = document.createElement('a-animation');
+
+  animation.setAttribute('from', '0 ' + currentRotationY + ' 0');
+  animation.setAttribute('to', '0 ' + (currentRotationY + CAROUSEL_ROTATE_Y_CHANGE) + ' 0');
+  animation.setAttribute('begin', 'click');
+  animation.setAttribute('attribute', 'rotation');
+  animation.setAttribute('fill', 'forwards');
+  animation.setAttribute('dur', '1000');
+
+  imageContainer.appendChild(animation);
+
+}
+
+/**
+ * Unfortunately it does not seem possible at the moment to update an existing animation.
+ * See: https://github.com/aframevr/aframe/issues/1819
+ */
 function updateAnimation() {
 
   currentRotationY += CAROUSEL_ROTATE_Y_CHANGE;
 
-  carouselAnimation.setAttribute('from', '0 ' + currentRotationY + ' 0');
-  carouselAnimation.setAttribute('to', '0 ' + (currentRotationY + CAROUSEL_ROTATE_Y_CHANGE) + ' 0');
+  // Remove the old animation
+  //animation.remove();
+
+  // And create a new one
+  setupAnimation();  
 
 }
 
@@ -90,7 +112,8 @@ function fetchImages() {
 }
 
 function init() {
-  carouselAnimation.addEventListener('animationend', updateAnimation);
+  setupAnimation();
+  animation.addEventListener('animationend', updateAnimation);
   fetchImages();
 }
 
