@@ -5,6 +5,8 @@ var scene = document.getElementById('scene');
 var assets = document.createElement('a-assets');
 var imageContainer = document.createElement('div');
 
+var testEntity = document.getElementById('test-entity');
+
 var imageSrcArray = [
   'images/barnyz_11129952164_e10c4ec600_k.jpg',
   'images/ifenyu_9265105553_cc2286fdce_o.jpg',
@@ -24,9 +26,13 @@ function prepareImage(id, src) {
   aframeImageEl.setAttribute('src', '#img' + id);
   aframeImageEl.setAttribute('height', 1);
   aframeImageEl.setAttribute('width', 1);
-  //aframeImageEl.setAttribute('position', id + " 1 -3");
 
-  imageContainer.appendChild(aframeImageEl);
+  var entityEl = document.createElement('a-entity');
+  entityEl.setAttribute('position', { x: 1, y: 1, z: -3 });
+
+  entityEl.appendChild(aframeImageEl);
+
+  imageContainer.appendChild(entityEl);
 
 }
 
@@ -59,6 +65,9 @@ function generateImages() {
   scene.appendChild(imageContainer);
 
   console.log('Generated images');
+
+  // TEMP
+  testEntity.setAttribute('position', {x: 1, y: 2, z: 3});
 
 }
 
