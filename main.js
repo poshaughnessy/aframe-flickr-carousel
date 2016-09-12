@@ -1,18 +1,14 @@
 // To generate an API URL, visit: https://www.flickr.com/services/api/explore/flickr.photos.search
-var API_URL = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=89a4669c0553d3d254b50803bff8f692&tags=llama&per_page=20&format=json&nojsoncallback=1&api_sig=77f7464dbc94fddf7655511f30f34496';
+var API_URL = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=caa934e3ee0864ccdd36a5e671ab5563&tags=llama&per_page=10&format=json&nojsoncallback=1&api_sig=05bc4e460ee7a5602d96989cc5d1b898';
 
 var scene = document.getElementById('scene');
 var assets = document.getElementById('assets');
 
 var testEntity = document.getElementById('test-entity');
 
-var imageSrcArray = [
-  'images/barnyz_11129952164_e10c4ec600_k.jpg'
-  //'images/ifenyu_9265105553_cc2286fdce_o.jpg',
-  //'images/oneras_5142031622_7676650034_o.jpg'
-];
+var imageSrcArray = [];
 
-function prepareImage(id, src) {
+function generateImage(id, src) {
 
   var imgEl = document.createElement('img');
   imgEl.id = 'img' + id;
@@ -27,7 +23,7 @@ function prepareImage(id, src) {
   aframeImageEl.setAttribute('width', 1);
 
   var entityEl = document.createElement('a-entity');
-  entityEl.setAttribute('position', {x: 1, y: 1, z: -3});
+  entityEl.setAttribute('position', {x: id - 5, y: 1, z: -3});
 
   entityEl.appendChild(aframeImageEl);
 
@@ -44,9 +40,7 @@ function processUrls(photos) {
     var photo = photos[i];
 
     // For URL format details, see: https://www.flickr.com/services/api/misc.urls.html
-    var photoUrl = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_z.jpg`;
-
-    imageSrcArray.append(photoUrl);
+    imageSrcArray.push(`https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_z.jpg`);
 
   }
 
@@ -57,7 +51,7 @@ function processUrls(photos) {
 function generateImages() {
 
   for (var i=0; i < imageSrcArray.length; i++) {
-    prepareImage(i, imageSrcArray[i]);
+    generateImage(i, imageSrcArray[i]);
   }
 
   console.log('Generated images');
@@ -70,7 +64,7 @@ fetch(API_URL)
   })
   .then(function(json) {
     console.log('JSON response', json);
-    //processUrls(json.photos.photo);
+    processUrls(json.photos.photo);
     generateImages();
   })
   .catch(function (err) {
