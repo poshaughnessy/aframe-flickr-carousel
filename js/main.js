@@ -4,9 +4,8 @@ var API_URL = 'https://api.flickr.com/services/rest/?method=flickr.photos.search
 var CAROUSEL_ROTATE_Y_CHANGE = 360 / 9;
 
 var scene = document.getElementById('scene');
-var assets = document.getElementById('assets');
+var assets = document.querySelector('a-assets');
 var imageContainer = document.getElementById('imageContainer');
-var animation = document.querySelector('a-animation');
 var cameraContainer = document.getElementById('cameraContainer');
 
 var currentRotationY = 10;
@@ -35,13 +34,10 @@ function generateImage(id, src) {
   aframeImageEl.setAttribute('width', 1.25);
   aframeImageEl.setAttribute('height', 1);
 
-  var entity = document.createElement('a-entity');
-  entity.appendChild(aframeImageEl);
+  // Rotate the image to face the centre
+  aframeImageEl.setAttribute('look-at', '0 0.75 0');
 
-  // Rotate the images to face the user in the centre
-  entity.setAttribute('look-at', '0 0.75 0');
-
-  imageContainer.appendChild(entity);
+  imageContainer.appendChild(aframeImageEl);
 
 }
 
@@ -55,17 +51,18 @@ function generateImages() {
 
 }
 
-function processUrls(photos) {
+function processImageUrls(photos) {
 
   imageSrcArray = [];
 
   for (var i=0; i < photos.length; i++) {
-
     var photo = photos[i];
-
     // For URL format details, see: https://www.flickr.com/services/api/misc.urls.html
-    imageSrcArray.push(`https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_z.jpg`);
-
+    // This would be neater as a template literal, but that needs support/transpilation/polyfilling
+    var domain = 'https://farm'+photo.farm+'.staticflickr.com';
+    var path = '/'+photo.server+'/';
+    var filename = photo.id+'_'+photo.secret+'_z.jpg';
+    imageSrcArray.push(domain + path + filename);
   }
 
   console.log('Processed URLs');
@@ -74,7 +71,7 @@ function processUrls(photos) {
 
 function setupAnimation() {
 
-  animation = document.createElement('a-animation');
+  var animation = document.createElement('a-animation');
 
   animation.setAttribute('from', '0 ' + currentRotationY + ' 0');
   animation.setAttribute('to', '0 ' + (currentRotationY + CAROUSEL_ROTATE_Y_CHANGE) + ' 0');
@@ -82,6 +79,8 @@ function setupAnimation() {
   animation.setAttribute('attribute', 'rotation');
   animation.setAttribute('fill', 'forwards');
   animation.setAttribute('dur', '1000');
+
+  animation.addEventListener('animationend', updateAnimation);
 
   imageContainer.appendChild(animation);
 
@@ -95,7 +94,7 @@ function updateAnimation() {
 
   currentRotationY += CAROUSEL_ROTATE_Y_CHANGE;
 
-  // Remove the old animation
+  // Unfortunately, removing the old animation breaks it
   //animation.remove();
 
   // And create a new one
@@ -110,8 +109,7 @@ function fetchImages() {
       return response.json();
     })
     .then(function(json) {
-      console.log('JSON response', json);
-      processUrls(json.photos.photo);
+      processImageUrls(json.photos.photo);
       generateImages();
     })
     .catch(function (err) {
@@ -122,8 +120,7 @@ function fetchImages() {
 
 function init() {
   gearVRHeightFix();
-  setupAnimation();
-  animation.addEventListener('animationend', updateAnimation);
+  setupAnimation();  
   fetchImages();
 }
 
