@@ -15,7 +15,6 @@ function generateImage(id, src) {
   imgEl.id = 'img' + id;
   imgEl.crossOrigin = "anonymous";
   imgEl.setAttribute('src', src);
-  //imgEl.setAttribute('src', 'images/llama-512.jpg');
 
   assets.appendChild(imgEl);
 
@@ -26,8 +25,26 @@ function generateImage(id, src) {
 
   var entity = document.createElement('a-entity');
   entity.appendChild(aframeImageEl);
+  entity.setAttribute('look-at', '0 0.75 0');
 
   imageContainer.appendChild(entity);
+
+}
+
+function generateImages() {
+
+  for (var i=0; i < imageSrcArray.length; i++) {
+    generateImage(i, imageSrcArray[i]);
+  }
+
+  console.log('Generated images');
+
+}
+
+/**
+ * The aframe-layout-component positions the images, but does not rotate them for us.
+ */
+function rotateImages() {
 
 }
 
@@ -48,16 +65,6 @@ function processUrls(photos) {
 
 }
 
-function generateImages() {
-
-  for (var i=0; i < imageSrcArray.length; i++) {
-    generateImage(i, imageSrcArray[i]);
-  }
-
-  console.log('Generated images');
-
-}
-
 function fetchImages() {
 
   fetch(API_URL)
@@ -68,6 +75,7 @@ function fetchImages() {
       console.log('JSON response', json);
       processUrls(json.photos.photo);
       generateImages();
+      rotateImages();
     })
     .catch(function (err) {
       console.error('Unable to fetch photos', err);

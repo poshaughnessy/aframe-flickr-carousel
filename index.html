@@ -4,11 +4,12 @@
     <title>A-Frame Photo Viewer</title>
     <script src="https://aframe.io/releases/0.3.0/aframe.min.js"></script>
     <script src="components/aframe-layout-component.min.js"></script>
+    <script src="components/aframe-look-at-component.min.js"></script>
   </head>
   <body>
     <a-scene id="scene">
       <a-assets id="assets"></a-assets>
-      <a-entity id="imageContainer" layout="type: circle; radius: 5" position="0 0.75 0"></a-entity>
+      <a-entity id="imageContainer" layout="type: circle; radius: 2.5" position="0 0.75 0"></a-entity>
       <a-sky color="#333"></a-sky>
     </a-scene>
     <script src="js/main.js"></script>
