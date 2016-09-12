@@ -16,9 +16,10 @@ var imageSrcArray = [];
  * See: https://github.com/aframevr/aframe/issues/1856
  */
 function gearVRHeightFix() {
-  if (!AFRAME.utils.isGearVR) { return; }
-  cameraElement.el.setAttribute('position', '0 1.6 0');
-  alert('Updated camera height');
+  if (AFRAME.utils.isGearVR()) {
+    cameraContainer.setAttribute('position', '0 1.6 0');
+    alert('Updated camera height');
+  }
 }
 
 function generateImage(id, src) {
