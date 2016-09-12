@@ -5,7 +5,11 @@ var scene = document.getElementById('scene');
 var assets = document.createElement('a-assets');
 var imageContainer = document.createElement('div');
 
-var photos = [];
+var imageSrcArray = [
+  'images/barnyz_11129952164_e10c4ec600_k.jpg',
+  'images/ifenyu_9265105553_cc2286fdce_o.jpg',
+  'images/oneras_5142031622_7676650034_o.jpg'
+];
 
 function prepareImage(id, src) {
 
@@ -20,15 +24,15 @@ function prepareImage(id, src) {
   aframeImageEl.setAttribute('src', '#img' + id);
   aframeImageEl.setAttribute('height', 1);
   aframeImageEl.setAttribute('width', 1);
-  aframeImageEl.setAttribute('position', id + " 1 -3");
+  //aframeImageEl.setAttribute('position', id + " 1 -3");
 
   imageContainer.appendChild(aframeImageEl);
 
 }
 
-function processPhotos(photosArray) {
+function processUrls(photos) {
 
-  photos = photosArray;
+  imageSrcArray = [];
 
   for (var i=0; i < photos.length; i++) {
 
@@ -37,14 +41,24 @@ function processPhotos(photosArray) {
     // For URL format details, see: https://www.flickr.com/services/api/misc.urls.html
     var photoUrl = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_z.jpg`;
 
-    prepareImage(i, photoUrl);
+    imageSrcArray.append(photoUrl);
 
+  }
+
+  console.log('Processed URLs');
+
+}
+
+function generateImages() {
+
+  for (var i=0; i < imageSrcArray.length; i++) {
+    prepareImage(i, imageSrcArray[i]);
   }
 
   scene.appendChild(assets);
   scene.appendChild(imageContainer);
 
-  console.log('Processed photos');
+  console.log('Generated images');
 
 }
 
@@ -54,13 +68,15 @@ fetch(API_URL)
   })
   .then(function(json) {
     console.log('JSON response', json);
-    processPhotos(json.photos.photo);
+    //processUrls(json.photos.photo);
+    generateImages();
   })
   .catch(function (err) {
     console.error('Unable to fetch photos', err);
   });
 
-// Arrange in a sphere - borrowing this from: http://threejs.org/examples/css3d_periodictable.html
+
+// TODO: Arrange in a sphere - borrowing this from: http://threejs.org/examples/css3d_periodictable.html
 
 /*
 var vector = new THREE.Vector3();
