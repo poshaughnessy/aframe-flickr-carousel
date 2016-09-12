@@ -7,6 +7,7 @@ var scene = document.getElementById('scene');
 var assets = document.getElementById('assets');
 var imageContainer = document.getElementById('imageContainer');
 var animation = document.querySelector('a-animation');
+var cameraContainer = document.getElementById('cameraContainer');
 
 var currentRotationY = 10;
 var imageSrcArray = [];
@@ -15,22 +16,9 @@ var imageSrcArray = [];
  * See: https://github.com/aframevr/aframe/issues/1856
  */
 function gearVRHeightFix() {
-  alert('1');
-  AFRAME.registerComponent('gearvr-height-fix', {
-    dependencies: ['position'],
-
-    init: function () {
-      alert('2');
-      if (!AFRAME.utils.isGearVR) { return; }
-      alert('3');
-      var position = this.el.getComputedAttribute('position');
-      alert( position.y );
-      if (position.y < 0.1) {
-        position.y = 1.6;
-      }
-      this.el.setAttribute('position', position);
-    }
-  });
+  if (!AFRAME.utils.isGearVR) { return; }
+  cameraElement.el.setAttribute('position', '0 1.6 0');
+  alert('Updated camera height');
 }
 
 function generateImage(id, src) {
