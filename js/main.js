@@ -21,6 +21,7 @@ function gearVRHeightFix() {
     init: function () {
       if (!AFRAME.utils.isGearVR) { return; }
       var position = this.el.getComputedAttribute('position');
+      alert( position.y );
       if (position.y < 0.1) {
         position.y = 1.6;
       }
