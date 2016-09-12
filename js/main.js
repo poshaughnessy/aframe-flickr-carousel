@@ -11,6 +11,23 @@ var animation = document.querySelector('a-animation');
 var currentRotationY = 10;
 var imageSrcArray = [];
 
+/**
+ * See: https://github.com/aframevr/aframe/issues/1856
+ */
+function gearVRHeightFix() {
+  AFRAME.registerComponent('gearvr-height-fix', {
+    dependencies: ['position'],
+
+    init: function () {
+      if (!AFRAME.utils.isGearVR) { return; }
+      var position = this.el.getComputedAttribute('position');
+      if (position.y < 0.1) {
+        position.y = 1.6;
+      }
+      this.el.setAttribute('position', position);
+    }
+  });
+}
 
 function generateImage(id, src) {
 
@@ -112,6 +129,7 @@ function fetchImages() {
 }
 
 function init() {
+  gearVRHeightFix();
   setupAnimation();
   animation.addEventListener('animationend', updateAnimation);
   fetchImages();

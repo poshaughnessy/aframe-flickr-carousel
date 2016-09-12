@@ -11,9 +11,11 @@
       <a-assets id="assets"></a-assets>
       <a-entity id="imageContainer" layout="type: circle; radius: 2" position="0 0.75 0" rotation="0 10 0"></a-entity>
       <a-sky color="#333"></a-sky>
-      <a-camera>
-        <a-cursor></a-cursor>
-      </a-camera>
+      <a-entity gearvr-height-fix>
+        <a-camera>
+          <a-cursor></a-cursor>
+        </a-camera>
+      </a-entity>
     </a-scene>
     <script src="js/main.js"></script>
   </body>
