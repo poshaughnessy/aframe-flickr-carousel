@@ -13,7 +13,6 @@ function generateImage(id, src) {
   var imgEl = document.createElement('img');
   imgEl.id = 'img' + id;
   imgEl.setAttribute('src', src);
-  imgEl.setAttribute('crossorigin', 'crossorigin');
 
   assets.appendChild(imgEl);
 
