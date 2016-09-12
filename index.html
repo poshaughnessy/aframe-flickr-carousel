@@ -8,14 +8,14 @@
   </head>
   <body>
     <a-scene id="scene">
-      <a-assets id="assets"></a-assets>
+      <a-assets id="assets">
+        <img id="skybox" src="images/skybox_by_gadl.jpg"/>
+      </a-assets>
       <a-entity id="imageContainer" layout="type: circle; radius: 2" position="0 0.75 0" rotation="0 10 0"></a-entity>
-      <a-sky color="#333"></a-sky>
-      <a-entity id="cameraContainer">
-        <a-camera>
-          <a-cursor></a-cursor>
-        </a-camera>
+      <a-entity id="cameraContainer" camera position="0 1.6 0">
+        <a-cursor></a-cursor>
       </a-entity>
+      <a-sky src="#skybox" position="0 -1 0" rotation="0 -90 0"></a-sky>
     </a-scene>
     <script src="js/main.js"></script>
   </body>

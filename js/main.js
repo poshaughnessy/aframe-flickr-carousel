@@ -1,15 +1,18 @@
 // To generate an API URL, visit: https://www.flickr.com/services/api/explore/flickr.photos.search
 var API_URL = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=d02d27104d6cb6d8d9124917feedf869&tags=llama&per_page=9&format=json&nojsoncallback=1';
 
-var CAROUSEL_ROTATE_Y_CHANGE = 360 / 9;
+var CAROUSEL_ROTATE_RADIANS = 40 * Math.PI / 180;
 
 var scene = document.getElementById('scene');
 var assets = document.querySelector('a-assets');
 var imageContainer = document.getElementById('imageContainer');
 var cameraContainer = document.getElementById('cameraContainer');
+var cursor = document.querySelector('a-cursor');
 
-var currentRotationY = 10;
+var currentRotationY = 10 * Math.PI / 180;
 var imageSrcArray = [];
+
+var carouselTween;
 
 /**
  * See: https://github.com/aframevr/aframe/issues/1856
@@ -69,20 +72,32 @@ function processImageUrls(photos) {
 
 }
 
+function animate(time) {
+  if (carouselTween) {
+    carouselTween.update(time);
+  }
+  requestAnimationFrame(animate);
+}
+
+function setupTween() {
+
+  var targetRotation = currentRotationY + CAROUSEL_ROTATE_RADIANS;
+
+  carouselTween = new AFRAME.TWEEN.Tween(imageContainer.object3D.rotation)
+    .to({y: targetRotation}, 500)
+    .onComplete(function() {
+      currentRotationY = targetRotation;
+    });
+}
+
 function setupAnimation() {
 
-  var animation = document.createElement('a-animation');
+  scene.addEventListener('click', function () {
+    setupTween();
+    carouselTween.start();
+  });  
 
-  animation.setAttribute('from', '0 ' + currentRotationY + ' 0');
-  animation.setAttribute('to', '0 ' + (currentRotationY + CAROUSEL_ROTATE_Y_CHANGE) + ' 0');
-  animation.setAttribute('begin', 'click');
-  animation.setAttribute('attribute', 'rotation');
-  animation.setAttribute('fill', 'forwards');
-  animation.setAttribute('dur', '1000');
-
-  animation.addEventListener('animationend', updateAnimation);
-
-  imageContainer.appendChild(animation);
+  requestAnimationFrame(animate);
 
 }
 
