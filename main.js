@@ -2,15 +2,14 @@
 var API_URL = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=89a4669c0553d3d254b50803bff8f692&tags=llama&per_page=20&format=json&nojsoncallback=1&api_sig=77f7464dbc94fddf7655511f30f34496';
 
 var scene = document.getElementById('scene');
-var assets = document.createElement('a-assets');
-var imageContainer = document.createElement('div');
+var assets = document.getElementById('assets');
 
 var testEntity = document.getElementById('test-entity');
 
 var imageSrcArray = [
-  'images/barnyz_11129952164_e10c4ec600_k.jpg',
-  'images/ifenyu_9265105553_cc2286fdce_o.jpg',
-  'images/oneras_5142031622_7676650034_o.jpg'
+  'images/barnyz_11129952164_e10c4ec600_k.jpg'
+  //'images/ifenyu_9265105553_cc2286fdce_o.jpg',
+  //'images/oneras_5142031622_7676650034_o.jpg'
 ];
 
 function prepareImage(id, src) {
@@ -28,11 +27,11 @@ function prepareImage(id, src) {
   aframeImageEl.setAttribute('width', 1);
 
   var entityEl = document.createElement('a-entity');
-  entityEl.setAttribute('position', { x: 1, y: 1, z: -3 });
+  entityEl.setAttribute('position', {x: 1, y: 1, z: -3});
 
   entityEl.appendChild(aframeImageEl);
 
-  imageContainer.appendChild(entityEl);
+  scene.appendChild(entityEl);
 
 }
 
@@ -61,13 +60,7 @@ function generateImages() {
     prepareImage(i, imageSrcArray[i]);
   }
 
-  scene.appendChild(assets);
-  scene.appendChild(imageContainer);
-
   console.log('Generated images');
-
-  // TEMP
-  testEntity.setAttribute('position', {x: 1, y: 2, z: 3});
 
 }
 
