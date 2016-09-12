@@ -15,11 +15,14 @@ var imageSrcArray = [];
  * See: https://github.com/aframevr/aframe/issues/1856
  */
 function gearVRHeightFix() {
+  alert('1');
   AFRAME.registerComponent('gearvr-height-fix', {
     dependencies: ['position'],
 
     init: function () {
+      alert('2');
       if (!AFRAME.utils.isGearVR) { return; }
+      alert('3');
       var position = this.el.getComputedAttribute('position');
       alert( position.y );
       if (position.y < 0.1) {
