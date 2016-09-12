@@ -1,27 +1,18 @@
 // To generate an API URL, visit: https://www.flickr.com/services/api/explore/flickr.photos.search
-var API_URL = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=d02d27104d6cb6d8d9124917feedf869&tags=llama&per_page=9&format=json&nojsoncallback=1';
+var API_URL = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e0a100af1e50282bf685a422d5aa22c4&text=llama+farm&safe_search=&per_page=15&format=json&nojsoncallback=1';
 
-var CAROUSEL_ROTATE_RADIANS = 40 * Math.PI / 180;
+var NUM_PHOTOS = 15;
+var DEGS_TO_RADIANS = Math.PI / 180;
+var CAROUSEL_ROTATE_RADIANS = 360 * DEGS_TO_RADIANS / NUM_PHOTOS;
 
 var scene = document.getElementById('scene');
 var assets = document.querySelector('a-assets');
 var imageContainer = document.getElementById('imageContainer');
-var cameraContainer = document.getElementById('cameraContainer');
-var cursor = document.querySelector('a-cursor');
 
-var currentRotationY = 10 * Math.PI / 180;
+var currentRotationY = 18 * DEGS_TO_RADIANS;
 var imageSrcArray = [];
 
 var carouselTween;
-
-/**
- * See: https://github.com/aframevr/aframe/issues/1856
- */
-function gearVRHeightFix() {
-  if (AFRAME.utils.isGearVR()) {
-    cameraContainer.setAttribute('position', '0 1.6 0');
-  }
-}
 
 function generateImage(id, src) {
 
@@ -54,13 +45,15 @@ function generateImages() {
 
 }
 
+/**
+ * For URL format details, see: https://www.flickr.com/services/api/misc.urls.html
+ */
 function processImageUrls(photos) {
 
   imageSrcArray = [];
 
   for (var i=0; i < photos.length; i++) {
     var photo = photos[i];
-    // For URL format details, see: https://www.flickr.com/services/api/misc.urls.html
     // This would be neater as a template literal, but that needs support/transpilation/polyfilling
     var domain = 'https://farm'+photo.farm+'.staticflickr.com';
     var path = '/'+photo.server+'/';
@@ -95,25 +88,9 @@ function setupAnimation() {
   scene.addEventListener('click', function () {
     setupTween();
     carouselTween.start();
-  });  
+  });
 
   requestAnimationFrame(animate);
-
-}
-
-/**
- * Unfortunately it does not seem possible at the moment to update an existing animation.
- * See: https://github.com/aframevr/aframe/issues/1819
- */
-function updateAnimation() {
-
-  currentRotationY += CAROUSEL_ROTATE_Y_CHANGE;
-
-  // Unfortunately, removing the old animation breaks it
-  //animation.remove();
-
-  // And create a new one
-  setupAnimation();  
 
 }
 
@@ -134,8 +111,7 @@ function fetchImages() {
 }
 
 function init() {
-  gearVRHeightFix();
-  setupAnimation();  
+  setupAnimation();
   fetchImages();
 }
 
