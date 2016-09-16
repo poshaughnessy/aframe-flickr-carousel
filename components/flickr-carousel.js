@@ -58,7 +58,7 @@ AFRAME.registerComponent('flickr-search', {
         var imageSources = processImageUrls(json.photos.photo);
 
         for (var i = 0; i < imageSources.length; i++) {
-          el.appendChild(generateImage(imageSources[i]));
+          el.appendChild( generateImage(imageSources[i]) );
         }
 
       })
