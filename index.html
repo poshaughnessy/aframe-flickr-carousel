@@ -5,18 +5,21 @@
     <script src="https://aframe.io/releases/0.3.0/aframe.min.js"></script>
     <script src="components/aframe-layout-component.min.js"></script>
     <script src="components/aframe-look-at-component.min.js"></script>
+    <script src="components/flickr-carousel.js"></script>
+    <!--<script src="entities/flickr-carousel.js"></script>-->
   </head>
   <body>
     <a-scene id="scene">
       <a-assets id="assets">
         <img id="skybox" src="images/sky_by_gawthrop.jpg"/>
       </a-assets>
-      <a-entity id="imageContainer" layout="type: circle; radius: 3" position="0 0.75 0" rotation="0 18 0"></a-entity>
+      <!-- To generate an API key, visit: https://www.flickr.com/services/api/explore/flickr.photos.search -->
+      <a-entity flickr-search="radius: 3; search: llama farm; apiKey: 938531db84378de1637afd38a5069e08" layout="type: circle; radius: 3" position="0 0.75 0" rotation="0 18 0"></a-entity>
+      <!--a-flickr-carousel radius="3" search="llama farm" items="9"></a-flickr-carousel-->
       <a-entity id="cameraContainer" camera look-controls position="0 1.6 0">
         <a-cursor></a-cursor>
       </a-entity>
       <a-sky src="#skybox" position="0 -1 0" rotation="0 45 0"></a-sky>
     </a-scene>
-    <script src="js/main.js"></script>
   </body>
 </html>
