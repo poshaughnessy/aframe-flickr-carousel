@@ -8,7 +8,7 @@ AFRAME.registerComponent('rotate-on-click', {
   init: function() {
 
     var self = this;
-    
+
     this.el.addEventListener('click', function() {
 
       var targetRotation = self.el.object3D.rotation.y + self.data.degrees * DEGS_TO_RADIANS;

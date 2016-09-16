@@ -45,6 +45,9 @@ AFRAME.registerComponent('flickr-search', {
 
     var el = this.el;
 
+    console.log('numResults should be set via HTML attribute!!!', this.data.numResults);
+    console.log('apiKey should be set via HTML attribute!!!', this.data.apiKey);
+
     fetch(API_URL + '&text=' + encodeURI(this.data.search) + '&per_page=' + this.data.numResults + '&api_key=' + this.data.apiKey)
       .then(function(response) {
         return response.json();
@@ -52,6 +55,7 @@ AFRAME.registerComponent('flickr-search', {
       .then(function(json) {
 
         if (!json || !json.photos || !json.photos.photo) {
+          console.log('Invalid JSON', json);
           throw 'Invalid JSON response';
         }
 
