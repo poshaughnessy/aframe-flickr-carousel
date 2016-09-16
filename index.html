@@ -15,16 +15,11 @@
         <img id="skybox" src="images/sky_by_gawthrop.jpg"/>
       </a-assets>
       <!-- To generate an API key, visit: https://www.flickr.com/services/api/explore/flickr.photos.search -->
-      <!--
-      <a-entity flickr-search="search: llama farm; numResults: 15; apiKey: 938531db84378de1637afd38a5069e08"
-                rotate-on-click="degrees: 24"
-                layout="type: circle; radius: 3" position="0 0.75 0" rotation="0 18 0"></a-entity>
-      -->
-      <a-flickrcarousel radius="3"
-                        search="llama farmer"
-                        api-key="3aca20c32d0881ae27b3a29bfe1d1caf"
-                        position="0 0.75 0"
-                        rotation="0 18 0"></a-flickrcarousel>
+      <a-flickr-carousel search="llama farmer"
+                         api-key="3aca20c32d0881ae27b3a29bfe1d1caf"
+                         radius="3"
+                         position="0 0.75 0"
+                         rotation="0 18 0"></a-flickr-carousel>
       <a-entity id="cameraContainer" camera look-controls position="0 1.6 0">
         <a-cursor></a-cursor>
       </a-entity>

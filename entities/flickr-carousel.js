@@ -1,4 +1,4 @@
-AFRAME.registerPrimitive('a-flickrcarousel', {
+AFRAME.registerPrimitive('a-flickr-carousel', {
   defaultComponents: {
     'flickr-search': {
       search: '',
@@ -8,7 +8,9 @@ AFRAME.registerPrimitive('a-flickrcarousel', {
     'rotate-on-click': {
       degrees: 24
     },
-    'layout': {type: 'circle'}
+    'layout': {
+      type: 'circle'
+    }
   },
   mappings: {
     search: 'flickr-search.search',
