@@ -5,15 +5,17 @@ AFRAME.registerPrimitive('a-flickrcarousel', {
       apiKey: '',
       numResults: 15
     },
-    'rotate-on-click': {},
+    'rotate-on-click': {
+      degrees: 24
+    },
     'layout': {type: 'circle'}
   },
   mappings: {
-    numResults: 'flickr-search.numResults',
-    apiKey: 'flickr-search.apiKey',
+    search: 'flickr-search.search',
+    'num-results': 'flickr-search.numResults',
+    'api-key': 'flickr-search.apiKey',
     degrees: 'rotate-on-click.degrees',
     duration: 'rotate-on-click.duration',
-    radius: 'layout.radius',
-    search: 'flickr-search.search'
+    radius: 'layout.radius'
   }
 });

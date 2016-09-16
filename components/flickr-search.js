@@ -41,14 +41,22 @@ AFRAME.registerComponent('flickr-search', {
     numResults: {default: 10},
     apiKey: {default: ''}
   },
-  init: function() {
 
+  init: function() {
+    this.images = [];
+  },
+
+  update: function() {
+
+    var self = this;
     var el = this.el;
 
-    console.log('numResults should be set via HTML attribute!!!', this.data.numResults);
-    console.log('apiKey should be set via HTML attribute!!!', this.data.apiKey);
+    if (!this.data.apiKey) {
+      // No api key yet - it may take a couple of updates to come through
+      return;
+    }
 
-    fetch(API_URL + '&text=' + encodeURI(this.data.search) + '&per_page=' + this.data.numResults + '&api_key=' + this.data.apiKey)
+    fetch(API_URL+'&text='+this.data.search+'&per_page='+this.data.numResults+'&api_key='+this.data.apiKey)
       .then(function(response) {
         return response.json();
       })
@@ -62,7 +70,9 @@ AFRAME.registerComponent('flickr-search', {
         var imageSources = processImageUrls(json.photos.photo);
 
         for (var i = 0; i < imageSources.length; i++) {
-          el.appendChild( generateImage(imageSources[i]) );
+          var aImage = generateImage(imageSources[i]);
+          self.images.push(aImage);
+          el.appendChild(aImage);
         }
 
       })
@@ -70,6 +80,12 @@ AFRAME.registerComponent('flickr-search', {
         console.error('Unable to fetch photos', err);
       });
 
+  },
+
+  remove: function() {
+    this.images.forEach(function(imageEl) {
+      this.el.remove(imageEl);
+    });
   }
 });
 
