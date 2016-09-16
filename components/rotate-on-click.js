@@ -8,13 +8,12 @@ AFRAME.registerComponent('rotate-on-click', {
   init: function() {
 
     var self = this;
-    var tween;
-
+    
     this.el.addEventListener('click', function() {
 
       var targetRotation = self.el.object3D.rotation.y + self.data.degrees * DEGS_TO_RADIANS;
 
-      tween = new AFRAME.TWEEN.Tween(self.el.object3D.rotation)
+      new AFRAME.TWEEN.Tween(self.el.object3D.rotation)
         .to({y: targetRotation}, self.data.duration)
         .start();
     });
