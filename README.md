@@ -9,9 +9,13 @@ Click to advance to the next photo, or just look around with a WebVR-compatible 
 ## Local development
 
 You can use any web server to host the static files, for example `python -m SimpleHTTPServer`. 
-For help and alternatives, there is a good, easy guide here: 
+For help and alternatives, there is [a good, easy guide here](https://github.com/mrdoob/three.js/wiki/How-to-run-things-locally#run-local-server). 
 
-https://github.com/mrdoob/three.js/wiki/How-to-run-things-locally#run-local-server
+## If the carousel does not load...
+
+Please update the Flickr API key in index.html.
+
+To generate a new one, visit: https://www.flickr.com/services/api/explore/flickr.photos.search.
 
 ## Further demos
 
