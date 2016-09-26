@@ -1,12 +1,21 @@
 # A-Frame Flickr Carousel
 
-Pulls a set of photos from Flickr dynamically and displays them in a circular carousel.
+A virtual reality web app demonstration, using [A-Frame](https://aframe.io/).
 
-Click to advance to the next photo.
+It pulls a set of photos from Flickr dynamically and displays them in a circular carousel.
+
+Click to advance to the next photo, or just look around with a WebVR-compatible headset on.
 
 ## Local development
 
-Use any static web server to host, e.g. `python -m SimpleHTTPServer`.
+You can use any web server to host the static files, for example `python -m SimpleHTTPServer`. 
+For help and alternatives, there is a good, easy guide here: 
+
+https://github.com/mrdoob/three.js/wiki/How-to-run-things-locally#run-local-server
+
+## Further demos
+
+This is one of a set of demos included in our [Samsung Internet A-Frame Demos repository](https://github.com/SamsungInternet/a-frame-demos/).
 
 ## Credits
 
