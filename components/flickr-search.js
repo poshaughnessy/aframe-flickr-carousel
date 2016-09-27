@@ -23,7 +23,9 @@ function processImageUrls(photos) {
 function generateImage(src) {
 
   var imageEl = document.createElement('a-image');
-  imageEl.setAttribute('src', src);
+  // ImageOptim service - see: 
+  // https://medium.com/samsung-internet-dev/optimising-a-frame-assets-for-faster-starts-4ec3bd35c6fc
+  imageEl.setAttribute('src', 'https://img.gs/prtpzhtqdl/256x128,crop/' + src);
   imageEl.setAttribute('width', 1.25);
   imageEl.setAttribute('height', 1);
 

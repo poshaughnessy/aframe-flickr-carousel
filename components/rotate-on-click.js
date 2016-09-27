@@ -9,13 +9,16 @@ AFRAME.registerComponent('rotate-on-click', {
 
     var self = this;
 
-    this.el.addEventListener('click', function() {
+    this.el.addEventListener('click', this.onClick.bind(this));
 
-      var targetRotation = self.el.object3D.rotation.y + self.data.degrees * DEGS_TO_RADIANS;
+  },
+  onClick: function() {
 
-      new AFRAME.TWEEN.Tween(self.el.object3D.rotation)
-        .to({y: targetRotation}, self.data.duration)
-        .start();
-    });
+    var targetRotation = this.el.object3D.rotation.y + this.data.degrees * DEGS_TO_RADIANS;
+
+    new AFRAME.TWEEN.Tween(this.el.object3D.rotation)
+      .to({y: targetRotation}, this.data.duration)
+      .start();
+
   }
 });
